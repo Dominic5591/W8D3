@@ -1,42 +1,53 @@
-class Clock {
-  constructor(hours, minutes, seconds) {
-    // 1. Create a Date object.
-    // 2. Store the hours, minutes, and seconds.
-    // 3. Call printTime.
-    // 4. Schedule the tick at 1 second intervals.
+// class Clock {
+//   constructor(hours, minutes, seconds) {
+//     const dateObject = new Date();
+//     this.hours = dateObject.getHours();
+//     this.minutes = dateObject.getMinutes();
+//     this.seconds = dateObject.getSeconds();
 
-    const dateObject = new Date();
-    this.hours = dateObject.getHours();
-    this.minutes = dateObject.getMinutes();
-    this.seconds = dateObject.getSeconds();
+//     setInterval(this._tick.bind(this), 1000);
+//   }
 
-    // this._tick.bind(this)
+//   printTime() {
+//     console.log(`${this.hours}:${this.minutes}:${this.seconds}`);
+//   }
 
-    setInterval(this._tick.bind(this), 10)
-  }
+//   _tick() {
+//     if (this.seconds < 60) {
+//       this.seconds++;
+//     } else if (this.seconds === 60) {
+//       this.seconds = 0;
+//       this.minutes++;
+//     }
+//     if (this.minutes === 60) {
+//       this.minutes = 0;
+//       this.hours = (this.hours += 1) % 24;
+//     }
+//     return this.printTime();
+//   }
+// }
 
-  printTime() {
-    // Format the time in HH:MM:SS
-    // Use console.log to print it.
-    console.log(`${this.hours}:${this.minutes}:${this.seconds}`);
-  }
+// const clock = new Clock();
 
-  _tick() {
-    // 1. Increment the time by one second.
-    // 2. Call printTime.
+const readline = require('readline');
+const reader = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-      if (this.seconds < 60) {
-        this.seconds++
-      } else if (this.seconds === 60) {
-        this.seconds = 0
-        this.minutes++
-      } else if (this.minutes === 60) {
-        this.minutes = 0
-        this.hours + 1 % 24
-      }
-
-    return this.printTime()
+function addNumbers(sum, numsleft, completionCallback) {
+  if (numsleft > 0) {
+    reader.question('give me a number please', (answer) => {
+      sum += parseInt(answer);
+      console.log(sum);
+      addNumbers(sum, numsleft - 1, completionCallback);
+    });
+  } else {
+    completionCallback(sum);
+    if (numsleft === 0) {
+      reader.close();
+    }
   }
 }
 
-const clock = new Clock();
+addNumbers(0, 3, (sum) => console.log(`Total Sum: ${sum}`));
