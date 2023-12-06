@@ -51,3 +51,34 @@ function addNumbers(sum, numsleft, completionCallback) {
 }
 
 addNumbers(0, 3, (sum) => console.log(`Total Sum: ${sum}`));
+
+
+
+
+
+Function.prototype.myBind = function(context) {
+  return () => this.apply(context)
+}
+
+class Lamp {
+  constructor() {
+    this.name = "a lamp";
+  }
+}
+
+const turnOn = function() {
+  console.log("Turning on " + this.name);
+};
+
+const lamp = new Lamp();
+
+turnOn(); 
+
+const boundTurnOn = turnOn.bind(lamp);
+const myBoundTurnOn = turnOn.myBind(lamp);
+
+boundTurnOn(); 
+myBoundTurnOn(); 
+// should not work the way we want it to
+// should say "Turning on a lamp"
+// should say "Turning on a lamp"
